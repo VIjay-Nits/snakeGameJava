@@ -18,6 +18,7 @@ public class SnakeGame {
         frame.setBackground(Color.gray);
         frame.setResizable(false);
         frame.setVisible(true);
+        frame.setTitle("SNAKE_2D");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         GamePlay gp=new GamePlay();
