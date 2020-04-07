@@ -24,7 +24,7 @@ public class GamePlay extends JPanel implements KeyListener,ActionListener {
     private ImageIcon rm,lm,um,dm,tail;
     
     private Timer time;
-    private int delay=100;
+    private int delay=120;
     
     private int snakelength=3;
     private int moves=0;
@@ -71,6 +71,21 @@ public class GamePlay extends JPanel implements KeyListener,ActionListener {
         for(int i=0;i<snakelength;i++){
             if(i==0&&right){
                 rm=new ImageIcon("image/rightmouth.png");
+                rm.paintIcon(this, g,xlength[0], ylength[0]);
+        
+            }
+            if(i==0&&left){
+                rm=new ImageIcon("image/leftmouth.png");
+                rm.paintIcon(this, g,xlength[0], ylength[0]);
+        
+            }
+            if(i==0&&up){
+                rm=new ImageIcon("image/upmouth.png");
+                rm.paintIcon(this, g,xlength[0], ylength[0]);
+        
+            }
+            if(i==0&&down){
+                rm=new ImageIcon("image/downmouth.png");
                 rm.paintIcon(this, g,xlength[0], ylength[0]);
         
             }
@@ -177,12 +192,59 @@ public class GamePlay extends JPanel implements KeyListener,ActionListener {
             
         }
         if(left){
+             for(int r=snakelength;r>0;r--){
+                  ylength[r]=ylength[r-1];
+              }
+              for(int x=snakelength;x>=0;x--){
+                  if(x==0){
+                      xlength[x]=xlength[x]-25;
+                  }
+                  else{
+                      xlength[x]=xlength[x-1];
+                  }
+                  if(xlength[x]<25){
+                      xlength[x]=850;
+                  }
+              }
+              
+              repaint();
             
         }
         if(up){
-            
+             for(int r=snakelength;r>0;r--){
+                  xlength[r]=xlength[r-1];
+              }
+              for(int x=snakelength;x>=0;x--){
+                  if(x==0){
+                      ylength[x]=ylength[x]-25;
+                  }
+                  else{
+                      ylength[x]=ylength[x-1];
+                  }
+                  if(ylength[x]<75){
+                      ylength[x]=625;
+                  }
+              }
+              
+              repaint();
         }
         if(down){
+            for(int r=snakelength;r>0;r--){
+                  xlength[r]=xlength[r-1];
+              }
+              for(int x=snakelength;x>=0;x--){
+                  if(x==0){
+                      ylength[x]=ylength[x]+25;
+                  }
+                  else{
+                      ylength[x]=ylength[x-1];
+                  }
+                  if(ylength[x]>625){
+                      ylength[x]=75;
+                  }
+              }
+              
+              repaint();
             
         }
         
