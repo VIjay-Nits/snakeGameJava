@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.Timer;
+import java.util.Random;
 
 /**
  *
@@ -16,8 +17,8 @@ import javax.swing.Timer;
  */
 public class GamePlay extends JPanel implements KeyListener,ActionListener {
 
-    private int []xlength=new int[750];
-    private int []ylength=new int[750];
+    private int []xlength=new int[20];
+    private int []ylength=new int[20];
     
     private boolean left=false,right=false,up=false,down=false;
     
@@ -29,12 +30,23 @@ public class GamePlay extends JPanel implements KeyListener,ActionListener {
     private int snakelength=3;
     private int moves=0;
     
+    private int[] xenemy={25,50,75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,600,625,650,675,700,725,750,775,800,825,850};
+    private int[] yenemy={75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,600,625};
+    
+    private int xpos=new Random().nextInt(34);
+    private int ypos=new Random().nextInt(23);
+    
+   
+    private ImageIcon enemyImage;
+    
     public GamePlay() {
+       
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
         time =new Timer(delay, this);
         time.start();
+         
     }
     
     private ImageIcon tImage;
@@ -95,7 +107,19 @@ public class GamePlay extends JPanel implements KeyListener,ActionListener {
                 tail.paintIcon(this, g,xlength[i], ylength[i]);
         
             }
+            
         }
+        
+        enemyImage=new ImageIcon("image/enemy.png");
+        
+        
+        if(xenemy[xpos]==xlength[0]&&yenemy[ypos]==ylength[0]){
+                snakelength++;
+                xpos=new Random().nextInt(34);
+                ypos=new Random().nextInt(23);
+                
+        }
+        enemyImage.paintIcon(this, g, xenemy[xpos], yenemy[ypos]);
         
         
         g.dispose();
@@ -166,7 +190,7 @@ public class GamePlay extends JPanel implements KeyListener,ActionListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
 
     @Override
