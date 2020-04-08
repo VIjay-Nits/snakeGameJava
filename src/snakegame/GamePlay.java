@@ -3,6 +3,7 @@ import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,15 +18,15 @@ import java.util.Random;
  */
 public class GamePlay extends JPanel implements KeyListener,ActionListener {
 
-    private int []xlength=new int[20];
-    private int []ylength=new int[20];
+    private int []xlength=new int[750];
+    private int []ylength=new int[750];
     
     private boolean left=false,right=false,up=false,down=false;
     
     private ImageIcon rm,lm,um,dm,tail;
     
     private Timer time;
-    private int delay=120;
+    private int delay=100;
     
     private int snakelength=3;
     private int moves=0;
@@ -38,6 +39,9 @@ public class GamePlay extends JPanel implements KeyListener,ActionListener {
     
    
     private ImageIcon enemyImage;
+    
+    private int score=0;
+    
     
     public GamePlay() {
        
@@ -77,6 +81,11 @@ public class GamePlay extends JPanel implements KeyListener,ActionListener {
         g.setColor(Color.BLACK);
         g.fillRect(25, 75, 850, 575);
         
+        g.setColor(Color.red);
+        g.setFont(new Font("Arial",Font.BOLD,22));
+        g.drawString("Score: "+score, 710, 45);
+        
+        
         rm=new ImageIcon("image/rightmouth.png");
         rm.paintIcon(this, g,xlength[0], ylength[0]);
         
@@ -115,12 +124,29 @@ public class GamePlay extends JPanel implements KeyListener,ActionListener {
         
         if(xenemy[xpos]==xlength[0]&&yenemy[ypos]==ylength[0]){
                 snakelength++;
+                score=score+5;
                 xpos=new Random().nextInt(34);
                 ypos=new Random().nextInt(23);
                 
         }
         enemyImage.paintIcon(this, g, xenemy[xpos], yenemy[ypos]);
-        
+        for(int i=1;i<snakelength;i++){
+            if(xlength[i]==xlength[0]&&ylength[i]==ylength[0]){
+                right=false;
+                left=false;         
+                up=false;
+                down=false;
+                
+                g.setColor(Color.red);
+                g.setFont(new Font("Arial",Font.BOLD,50));
+                g.drawString("Game Over", 305, 300);
+                
+                g.setFont(new Font("Arial",Font.BOLD,50));
+                g.drawString("Press Space to Restart", 150, 350);
+                 
+                
+            }
+        }
         
         g.dispose();
         
@@ -133,6 +159,12 @@ public class GamePlay extends JPanel implements KeyListener,ActionListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode()==KeyEvent.VK_SPACE){
+            snakelength=3;
+            moves=0;    
+            score=0;
+            repaint();
+        }
          if(e.getKeyCode()==KeyEvent.VK_RIGHT){
              moves++;
              if(!left){
