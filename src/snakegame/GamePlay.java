@@ -1,3 +1,4 @@
+
 package snakegame;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
@@ -26,7 +27,7 @@ public class GamePlay extends JPanel implements KeyListener,ActionListener {
     private ImageIcon rm,lm,um,dm,tail;
     
     private Timer time;
-    private int delay=100;
+    private int delay=120;
     
     private int snakelength=3;
     private int moves=0;
@@ -159,6 +160,7 @@ public class GamePlay extends JPanel implements KeyListener,ActionListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+       
         if(e.getKeyCode()==KeyEvent.VK_SPACE){
             snakelength=3;
             moves=0;    
